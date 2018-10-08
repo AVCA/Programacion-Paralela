@@ -1,9 +1,0 @@
-#include <studio.h>
-#include <omp.h>
-
-float area=0.0,pi,x;
-int i,n=100;
-
-int main(){
-	return 0;
-}

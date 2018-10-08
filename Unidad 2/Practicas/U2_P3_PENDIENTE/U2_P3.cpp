@@ -1,7 +1,7 @@
 //============================================================================
-// Name        : main.cpp
+// Name        : U2_P3.cpp
 // Author      : Ana Victoria Cavazos Argot
-// Practica    : U1_P3_1
+// Practica    : U2_P3
 //============================================================================
 
 #include <stdio.h>
@@ -9,23 +9,32 @@
 #include <math.h>
 #include <time.h>
 #include <ctime>
+#include <omp.h>
 #define SEED 45
-//time_t t;
+#define N 10 // 10,000,000
+#define H 4
+
 unsigned t0, t1;
-int N=5;
 
 float Montecarlo(){
 	double x=0,y=0,aux=0;
-	int count=0;
+	int count=0,i=0;
 	srand(SEED);
-	for(int i=0;i<N;i++){
+	// ----------------------------------------------------------
+	// Paralelismo:
+	// Asignacion de hilos:
+	//omp_set_num_threads(H);
+	// ----------------------------------------------------------
+	// Paralelismo de proceso:
+	#pragma omp parallel for shared(count)
+	for(i=0;i<N;i++){
 		x = ((double)rand())/RAND_MAX;
 		y = ((double)rand())/RAND_MAX;
 		aux=(pow(x,2))+pow(y,2);
 		printf("%f\n",aux);
 		if(aux<=1)count++;
 	}
-	printf("\n");
+	printf("%d\n",count);
 	// count = Conteo dentro del circulo (Area del circulo)
 	// N = Conteo dentro del cuadrado (Area dentro del cuadrado) 
 	return ((double)count/(double)(N))*4.0;
