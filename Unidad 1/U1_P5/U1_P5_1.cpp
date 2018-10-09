@@ -7,10 +7,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include <time.h>
 #include <ctime>
 #define SEED 45
-#define N 50000
+#define N 100
 
 unsigned t0, t1;
 

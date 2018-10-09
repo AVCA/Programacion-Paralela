@@ -9,6 +9,11 @@
 #include <math.h>
 #include <iostream>
 #include <ctime>
+
+#define SEED 20
+#define H 4
+#define N 5
+
 using namespace std;
 unsigned t0, t1;
 
@@ -56,18 +61,17 @@ void Reverse_and_Add(int valor){
 //============================================================================
 
 int main() {
-	
-	int N=0,valor=0;
-	cin >> N;
+	t0=clock();
+	int valor=0;
+	// ----------------------------------------------------------
+	srand(SEED);
 	for (int i = 0; i < N; ++i)
 	{
-		t0=clock();
-		cin >> valor;
+		valor = rand();
 		Reverse_and_Add(valor);
-		t1 = clock();
-		double time = (double(t1-t0)/CLOCKS_PER_SEC);
-		printf("Tiempo de ejecucion: %f \n",time);
 	}
-	
+	t1 = clock();
+	double time = (double(t1-t0)/CLOCKS_PER_SEC);
+	printf("Tiempo de ejecucion: %f \n",time);
 	return 0;
 }
