@@ -10,6 +10,7 @@
 #include <ctime> 
 #define SEED 20
 #define N 500
+#define RANDMAX 10000
 
 unsigned t0, t1;
 
@@ -133,7 +134,7 @@ int main(void) {
 	// LLENAR ARREGLO CON VALORES ALEATORIOS
 	srand(SEED);
 	for (i=0; i < num; i++){
-		numeros[i]= rand();
+		numeros[i]= rand()%RANDMAX;
 	    printf("%d, ",numeros[i]);
 	}
 	printf ("\n");

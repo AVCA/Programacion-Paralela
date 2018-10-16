@@ -26,14 +26,14 @@ chunk = 10;                    /* set loop iteration chunk size */
     printf("Initializing matrices...\n");
     }
   /*** Initialize matrices ***/
-  #pragma omp for if (NRA*NCA>1000) 
+  #pragma omp for schedule (static, chunk) 
   for (i=0; i<NRA; i++)
     for (j=0; j<NCA; j++)
-      a[i][j]= 1;
+      a[i][j]= i+j;
   #pragma omp for schedule (static, chunk)
   for (i=0; i<NCA; i++)
     for (j=0; j<NCB; j++)
-      b[i][j]= 1;
+      b[i][j]= i*j;
   #pragma omp for schedule (static, chunk)
   for (i=0; i<NRA; i++)
     for (j=0; j<NCB; j++)

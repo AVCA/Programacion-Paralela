@@ -12,7 +12,7 @@
 #define SEED 45
 //time_t t;
 unsigned t0, t1;
-int N=100000000;
+int N=15;
 
 float Montecarlo(){
 	double x=0,y=0,aux=0;

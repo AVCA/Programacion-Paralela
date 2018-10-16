@@ -10,13 +10,14 @@
 #include <ctime>
 #include <omp.h>
 #define SEED 45
-#define H 4
-#define N 100
+#define H 1000
+#define N 500000
 
 unsigned t0, t1;
 
 float f_suma(long int numeros[], int num, int inicio, int fin){
 	float suma=0;
+	#pragma omp parallel for reduction(+:suma)
 	for (int i = inicio; i < fin; ++i)
 	{
 		suma+=numeros[i];
@@ -32,9 +33,11 @@ int f_moda(long int numeros[], int num){
 	int aux=numeros[0];
 	int max=numeros[num-1]+1;
 	int repetidos[max];
+	#pragma omp parallel for
 	for(int i=0;i<max;i++){
 		repetidos[i]=0;
 	}
+	#pragma omp parallel for shared(repetidos)
 	for (int i=0; i < num; i++){
 		if(numeros[i]==aux)repetidos[numeros[i]]++;
 		else{aux=numeros[i];repetidos[numeros[i]]++;}
@@ -42,6 +45,7 @@ int f_moda(long int numeros[], int num){
 	aux=0;
 	int moda=0;
 	int m = 0;
+	#pragma omp parallel for shared(m,moda)
 	for(int i=0;i<max;i++){
 		//printf("%d ",repetidos[i]);
 		if(repetidos[i]>moda){
@@ -55,6 +59,7 @@ int f_moda(long int numeros[], int num){
 
 float f_var(long int numeros[], int num, float media){
 	float aux=0;
+	#pragma omp parallel for reduction(+:aux)
 	for(int i=0;i<num;i++){
 		aux+= pow(fabs(numeros[i]-media),2);
 	}
@@ -63,6 +68,7 @@ float f_var(long int numeros[], int num, float media){
 
 float f_desv(long int numeros[], int num, float media){
 	float aux=0;
+	#pragma omp parallel for reduction(+:aux)
 	for(int i=0;i<num;i++){
 		aux+= pow(fabs(numeros[i]-media),2);
 	}
@@ -72,6 +78,7 @@ float f_desv(long int numeros[], int num, float media){
 
 void ordenamiento(long int numeros[], int num){
 	int aux=0;
+	#pragma omp parallel for
 	for (int i=0; i<num;i++){
 		for (int j=i+1;j<num;j++)
 		{
@@ -87,6 +94,7 @@ int main() {
 	t0=clock();
 	// ------------------------------------
 	// Variables locales:
+	printf("Paralelo:\n");
 	long int numeros[N];
 	float suma=0,media=0,var=0,desv=0;
 	int moda=0,par=0,impar=0,num=N;
@@ -116,29 +124,33 @@ int main() {
 		// Suma:
 		suma+= f_suma(numeros,num,inicio,fin);
 	}
-	// ----------------------------------------------------------
-	// Paralelismo de funciones:
-	#pragma omp parallel sections shared(media,moda)
+	//Paralelismo de funciones:
+	#pragma omp parallel shared(suma,media,moda,var,desv)
 	{
-		// Media:
-		#pragma omp section
-		media = f_media(suma,num);
+		#pragma omp single
+		{
+			#pragma omp taskwait
+			{
+				// Moda:
+				#pragma omp task
+				moda = f_moda(numeros,num);
 
-		// Moda:
-		#pragma omp section
-		moda = f_moda(numeros,num);
-	}
-	// ----------------------------------------------------------
-	// Paralelismo de funciones:
-	#pragma omp parallel sections shared(var,desv)
-	{
-		// Varianza:
-		#pragma omp section
-		var = f_var(numeros,num,media);
+				// Media:
+				#pragma omp task
+				media = f_media(suma,num);
 
-		// Desviacion estandar:
-		#pragma omp section
-		desv = f_desv(numeros,num,media);
+				#pragma omp taskwait
+				{
+					// Varianza:
+					#pragma omp task
+					var = f_var(numeros,num,media);
+
+					// Desviacion estandar:
+					#pragma omp task
+					desv = f_desv(numeros,num,media);
+				}
+			}
+		}
 	}
 	// ----------------------------------------------------------
 
