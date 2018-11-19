@@ -1,0 +1,29 @@
+*Unidad 3: MPI*
+----------------------------
+*Examen:*
+
+Opcion 1: https://es.wikipedia.org/wiki/Problema_de_la_clique
+Problema de k-clique
+Existe un clique de tamaño n en un grafos 
+o encuentra todos los clique en un grafo
+
+Opcion 2: https://es.wikipedia.org/wiki/Coloraci%C3%B3n_de_grafos
+Coloreo de grafos:
+
+----------------------------
+*Practicas:*
+7 ejercicios en total.
+
+1. Grafos
+2. Bucket
+3. Criba
+4. Libro: 4
+5. Examen U1 (Solo Ana y Ricardo)
+----------------------------
+*Exposicion:*
+Ejercicio del documento WORD
+----------------------------
+*Explicacion de algoritmo de grafos:*
+Grafo: Cualquier estado de México.
+Distancia entre municipios del estado.
+Archivo de entrada.

@@ -1,0 +1,51 @@
+// -------------------------------------
+Capitulo 3: Patrones de paralelismo
+
+Un patron es una situacion general que puede ser resuelta con una solucion en general
+
+Tipos:
+a) patrones creacionales:
+aquellos relativos a la creación de objetos
+
+b) patrones estructurales:
+relativos a composición de las jerarquías de clases
+ y objetos, y finalmente
+
+c) patrones de comportamiento:
+que describen interrelaciones entre objetos.
+
+Elementos:
+El nombre:
+que debe ser representativo del 
+tipo de problema considerado
+
+El problema:
+que es una descripción de los 
+factores que lo conforman su contexto, 
+cuando y donde ocurre y los elementos que 
+intervienen en el planteamiento de su definición.
+
+La solución:
+como una serie de elementos de diseño que 
+deben considerarse y sus relaciones. 
+No se describe una solución particular, 
+sino una plantilla que puede ser utilizada 
+en diferentes situaciones.
+
+Las consecuencias e impactos de la implementación 
+de la solución planteada y donde poner el foco 
+para evitar efectos indeseables de la aplicación.
+
+// Patterns for parallel programming
+patrones como Task Decomposition y Data Decomposition,
+
+patrones para el análisis de dependencias: Group Task y Order Task Pattern
+
+patrón destinado a la evaluación del diseño, Design Evaluation
+Pattern. 
+
+A nivel del espacio de estructura del algoritmo, se presentan
+Divide and Conquer, Recursive Data y Pipeline Pattern entre otros. Entre
+
+los patrones de estructuras de soporte se presentan Master/Worker, Loop
+Parallelism y Fork/Join.

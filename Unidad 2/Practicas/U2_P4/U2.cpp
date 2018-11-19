@@ -11,8 +11,8 @@
 #include <ctime>
 #include <omp.h>
 #define SEED 20
-#define H 2
-#define N 5
+#define H 16
+#define N 500000
 
 using namespace std;
 unsigned t0, t1;
@@ -45,7 +45,8 @@ long long palindromo(long long valor){
 }
 
 void Reverse_and_Add(long long valor){
-	#pragma omp task shared(valor) if(valor!=196)
+	//#pragma omp task shared(valor) if(valor!=196)
+	if(valor!=196)
 	{
 		if(p==0 && iteraciones<1000 && valor<4294967295){
 			valor2 = revertir(valor);
@@ -81,9 +82,11 @@ void calculo(long long valor){
 int main() {
 	t0=clock();
 	srand(SEED);
+	long long valor;
+	#pragma omp parallel for
 	for (int i = 0; i < N; ++i)
 	{
-		long long valor = rand();
+		valor = rand();
 		calculo(valor);
 	}
 	t1 = clock();

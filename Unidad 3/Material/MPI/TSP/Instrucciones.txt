@@ -1,0 +1,16 @@
+mpicxx -c libbb.cc
+mpicxx -c bbseq.cc
+mpicxx bbseq.o libbb.o
+mpicxx -o bbseq bbseq.o libbb.o
+./bbseq 4 tsp_problems/tsp4.1
+-------------------------------------------------------------
+100000  2  3  4
+  5100000  4  5
+  5  6100000  2
+  1  9  4100000
+-------------------------------------------------------------
+Solucion: 
+ci=9 : <0,1> <1,2> <2,3> <3,0> 
+Tiempo gastado= 2.59876e-05
+Numero de iteraciones = 2
+
